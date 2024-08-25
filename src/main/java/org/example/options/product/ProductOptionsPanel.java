@@ -1,4 +1,4 @@
-package org.example.options.client;
+package org.example.options.product;
 
 import lombok.Getter;
 
@@ -6,24 +6,24 @@ import javax.swing.*;
 import java.awt.*;
 
 @Getter
-public class ClientOptionsPanel {
+public class ProductOptionsPanel {
 
     private JButton addClientButton;
     private JButton editClientButton;
     private JButton deleteClientButton;
     private JButton listClientsButton;
 
-    public JPanel createClientOptionsPanel() {
+    public JPanel createProductOptionsPanel() {
         // Painel para os botões de opções
         JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Criar os botões para as opções de cliente
-        addClientButton = new JButton("Cadastrar Cliente");
-        editClientButton = new JButton("Editar Cliente");
-        deleteClientButton = new JButton("Excluir Cliente");
-        listClientsButton = new JButton("Listar Clientes");
+        // Criar os botões para as opções de produtos
+        addClientButton = new JButton("Cadastrar Produto");
+        editClientButton = new JButton("Editar Produto");
+        deleteClientButton = new JButton("Excluir Produto");
+        listClientsButton = new JButton("Listar Produtos");
 
         // Define largura fixa para os botões
         Dimension buttonSize = new Dimension(150, 30);

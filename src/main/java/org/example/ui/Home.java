@@ -1,9 +1,7 @@
 package org.example.ui;
 
-import org.example.options.client.ClientDeleteFormPanel;
-import org.example.options.client.ClientEditFormPanel;
-import org.example.options.client.ClientFormPanel;
-import org.example.options.client.ClientOptionsPanel;
+import org.example.options.client.*;
+import org.example.options.product.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,14 +77,23 @@ public class Home extends JFrame {
                 showClientOptions();
             }
         });
+
+        productsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showProductOptions();
+            }
+        });
     }
 
+
+    //INFORMAÇÕES DE CLIENTES
     public void showClientOptions() {
         // Limpar o painel à direita
         rightPanel.removeAll();
 
         // Usar a classe ClientOptionsPanel para criar o painel de opções
-        ClientOptionsPanel clientOptionsPanel = new ClientOptionsPanel(this); // Passando a instância do Home
+        ClientOptionsPanel clientOptionsPanel = new ClientOptionsPanel(); // Passando a instância do Home
         JPanel optionsPanel = clientOptionsPanel.createClientOptionsPanel();
 
         // Adicionar painel de opções ao painel direito
@@ -101,6 +108,7 @@ public class Home extends JFrame {
         JButton addClientButton = clientOptionsPanel.getAddClientButton();
         JButton editClientButton = clientOptionsPanel.getEditClientButton();
         JButton deleteClientButton = clientOptionsPanel.getDeleteClientButton();
+        JButton listClientsButton = clientOptionsPanel.getListClientsButton();
 
         // Ação para o botão "Cadastrar Cliente"
         addClientButton.addActionListener(new ActionListener() {
@@ -132,6 +140,16 @@ public class Home extends JFrame {
                 rightPanel.add(optionsPanel, BorderLayout.WEST);
                 rightPanel.add(rightSeparator, BorderLayout.CENTER);
                 showDeleteClientForm(); // Mostrar o formulário de deleção
+            }
+        });
+
+        listClientsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showListClientForm(); // Listar Clientes
             }
         });
 
@@ -191,6 +209,167 @@ public class Home extends JFrame {
 
         // Adicionar o formulário ao painel direito sem remover os botões
         rightPanel.add(formContainer, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showListClientForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Criar o painel da lista de clientes
+        ClientListFormPanel clientListFormPanel = new ClientListFormPanel();
+        JPanel listPanel = clientListFormPanel.createClientListPanel();
+
+        // Adicionar o painel da lista ao painel direito
+        rightPanel.add(listPanel, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    //INFORMAÇÕES DE PRODUTOS
+    public void showProductOptions() {
+        // Limpar o painel à direita
+        rightPanel.removeAll();
+
+        // Usar a classe ProductOptionsPanel para criar o painel de opções
+        ProductOptionsPanel productOptionsPanel = new ProductOptionsPanel();
+        JPanel optionsPanel = productOptionsPanel.createProductOptionsPanel();
+
+        // Adicionar painel de opções ao painel direito
+        rightPanel.add(optionsPanel, BorderLayout.WEST);
+
+        // Adicionar uma linha vertical após os botões de opções
+        JSeparator rightSeparator = new JSeparator(SwingConstants.VERTICAL);
+        rightSeparator.setPreferredSize(new Dimension(1, getHeight()));
+        rightPanel.add(rightSeparator, BorderLayout.CENTER);
+
+        // Obtenha as referências dos botões diretamente da classe ProductOptionsPanel
+        JButton addClientButton = productOptionsPanel.getAddClientButton();
+        JButton editClientButton = productOptionsPanel.getEditClientButton();
+        JButton deleteClientButton = productOptionsPanel.getDeleteClientButton();
+        JButton listClientsButton = productOptionsPanel.getListClientsButton();
+
+        // Ação para o botão "Cadastrar Produto"
+        addClientButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showProductForm();
+            }
+        });
+
+        // Ação para o botão "Editar Produto"
+        editClientButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showEditProductForm(); // Mostrar o formulário de edição
+            }
+        });
+
+        // Ação para o botão "Deletar Produto"
+        deleteClientButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showDeleteProductForm(); // Mostrar o formulário de deleção
+            }
+        });
+
+        // Ação para o botão "Listar Produtos"
+        listClientsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showListProductForm(); // Listar Produtos
+            }
+        });
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showProductForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Usar a classe ProductFormPanel para criar o formulário
+        ProductFormPanel productFormPanel = new ProductFormPanel();
+        JPanel formPanel = productFormPanel.createProductFormPanel();
+
+        // Adicionar o formulário à direita dos botões de opções
+        formContainer.add(formPanel);
+
+        // Adicionar o formulário ao painel direito sem remover os botões
+        rightPanel.add(formContainer, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showEditProductForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Usar a classe ProductEditFormPanel para criar o formulário de edição
+        ProductEditFormPanel productEditFormPanel = new ProductEditFormPanel();
+        JPanel formPanel = productEditFormPanel.createEditProductFormPanel();
+
+        // Adicionar o formulário à direita dos botões de opções
+        formContainer.add(formPanel);
+
+        // Adicionar o formulário ao painel direito sem remover os botões
+        rightPanel.add(formContainer, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showDeleteProductForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Usar a classe ProductEditFormPanel para criar o formulário de edição
+        ProductDeleteFormPanel productDeleteFormPanel = new ProductDeleteFormPanel();
+        JPanel formPanel = productDeleteFormPanel.deleteProductFormPanel();
+
+        // Adicionar o formulário à direita dos botões de opções
+        formContainer.add(formPanel);
+
+        // Adicionar o formulário ao painel direito sem remover os botões
+        rightPanel.add(formContainer, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showListProductForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Criar o painel da lista de produtos
+        ProductListFormPanel productListFormPanel = new ProductListFormPanel();
+        JPanel listPanel = productListFormPanel.createProductListPanel();
+
+        // Adicionar o painel da lista ao painel direito
+        rightPanel.add(listPanel, BorderLayout.CENTER);
 
         // Atualizar o painel
         rightPanel.revalidate();

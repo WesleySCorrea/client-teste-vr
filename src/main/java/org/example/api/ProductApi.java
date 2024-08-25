@@ -2,8 +2,8 @@ package org.example.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.api.dto.request.ClientRequestDTO;
-import org.example.api.dto.response.ClientResponseDTO;
+import org.example.api.dto.request.ProductRequestDTO;
+import org.example.api.dto.response.ProductResponseDTO;
 import org.example.config.PageConfig;
 
 import javax.swing.*;
@@ -13,35 +13,35 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-public class ClientApi {
+public class ProductApi {
 
     private static final String BASE_URL = "http://localhost:8080";
 
-    public ClientResponseDTO sendClientData(ClientRequestDTO clientRequestDTO) {
+    public ProductResponseDTO sendProductData(ProductRequestDTO productRequestDTO) {
         try {
             // Serializar a DTO para JSON
             ObjectMapper objectMapper = new ObjectMapper();
-            String requestBody = objectMapper.writeValueAsString(clientRequestDTO);
+            String requestBody = objectMapper.writeValueAsString(productRequestDTO);
 
             // Construir a requisição HTTP POST
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(BASE_URL + "/client"))
+                    .uri(new URI(BASE_URL + "/products"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
             // Enviar a requisição e obter a resposta
-            HttpClient client = HttpClient.newHttpClient();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpClient product = HttpClient.newHttpClient();
+            HttpResponse<String> response = product.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Verificar o status da resposta
             if (response.statusCode() == 201) { // HTTP 201 CREATED
-                // Mapear a resposta para o ClientResponseDTO
-                return objectMapper.readValue(response.body(), ClientResponseDTO.class);
+                // Mapear a resposta para o ProductResponseDTO
+                return objectMapper.readValue(response.body(), ProductResponseDTO.class);
             } else {
                 // Se a resposta não for CREATED, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao cadastrar cliente: " + response.body(),
+                        "Erro ao cadastrar produto: " + response.body(),
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -54,10 +54,10 @@ public class ClientApi {
         }
     }
 
-    public ClientResponseDTO findClientById(Long clientId) {
+    public ProductResponseDTO findProductById(Long productId) {
         try {
             // Construir a URI para a requisição GET
-            URI uri = new URI(BASE_URL + "/client/" + clientId);
+            URI uri = new URI(BASE_URL + "/products/" + productId);
 
             // Construir a requisição HTTP GET
             HttpRequest request = HttpRequest.newBuilder()
@@ -67,18 +67,18 @@ public class ClientApi {
                     .build();
 
             // Enviar a requisição e obter a resposta
-            HttpClient client = HttpClient.newHttpClient();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpClient product = HttpClient.newHttpClient();
+            HttpResponse<String> response = product.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Verificar o status da resposta
             if (response.statusCode() == 200) { // HTTP 200 OK
-                // Mapear a resposta para o ClientResponseDTO
+                // Mapear a resposta para o ProductResponseDTO
                 ObjectMapper objectMapper = new ObjectMapper();
-                return objectMapper.readValue(response.body(), ClientResponseDTO.class);
+                return objectMapper.readValue(response.body(), ProductResponseDTO.class);
             } else {
                 // Se a resposta não for OK, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Cliente não encontrado: " + response.body(),
+                        "Produto não encontrado: " + response.body(),
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -91,14 +91,14 @@ public class ClientApi {
         }
     }
 
-    public ClientResponseDTO updateClient(Long id, ClientRequestDTO clientRequestDTO) {
+    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO) {
         try {
             // Serializar a DTO para JSON
             ObjectMapper objectMapper = new ObjectMapper();
-            String requestBody = objectMapper.writeValueAsString(clientRequestDTO);
+            String requestBody = objectMapper.writeValueAsString(productRequestDTO);
 
             // Construir a URI para a requisição PATCH
-            URI uri = new URI(BASE_URL + "/client/" + id);
+            URI uri = new URI(BASE_URL + "/products/" + id);
 
             // Construir a requisição HTTP PATCH
             HttpRequest request = HttpRequest.newBuilder()
@@ -108,17 +108,17 @@ public class ClientApi {
                     .build();
 
             // Enviar a requisição e obter a resposta
-            HttpClient client = HttpClient.newHttpClient();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpClient product = HttpClient.newHttpClient();
+            HttpResponse<String> response = product.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Verificar o status da resposta
             if (response.statusCode() == 200) { // HTTP 200 OK
-                // Mapear a resposta para o ClientResponseDTO
-                return objectMapper.readValue(response.body(), ClientResponseDTO.class);
+                // Mapear a resposta para o ProductResponseDTO
+                return objectMapper.readValue(response.body(), ProductResponseDTO.class);
             } else {
                 // Se a resposta não for OK, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao atualizar cliente: " + response.body(),
+                        "Erro ao atualizar producto: " + response.body(),
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -131,10 +131,10 @@ public class ClientApi {
         }
     }
 
-    public boolean deleteClient(Long id) {
+    public boolean deleteProduct(Long id) {
         try {
             // Construir a URI para a requisição DELETE
-            URI uri = new URI(BASE_URL + "/client/" + id);
+            URI uri = new URI(BASE_URL + "/products/" + id);
 
             // Construir a requisição HTTP DELETE
             HttpRequest request = HttpRequest.newBuilder()
@@ -144,8 +144,8 @@ public class ClientApi {
                     .build();
 
             // Enviar a requisição e obter a resposta
-            HttpClient client = HttpClient.newHttpClient();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpClient product = HttpClient.newHttpClient();
+            HttpResponse<String> response = product.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Verificar o status da resposta
             if (response.statusCode() == 204) { // HTTP 204 NO CONTENT (Deleção bem-sucedida)
@@ -153,7 +153,7 @@ public class ClientApi {
             } else {
                 // Se a resposta não for NO CONTENT, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao deletar cliente: " + response.body(),
+                        "Erro ao deletar producte: " + response.body(),
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
@@ -166,10 +166,10 @@ public class ClientApi {
         }
     }
 
-    public List<ClientResponseDTO> findAllClientsByActiveIsTrue(int page, int size) {
+    public List<ProductResponseDTO> findAllProductsByActiveIsTrue(int page, int size) {
         try {
             // Construir a URI com parâmetros de paginação
-            URI uri = new URI(BASE_URL + "/client?page=" + page + "&size=" + size);
+            URI uri = new URI(BASE_URL + "/products?page=" + page + "&size=" + size);
 
             // Construir a requisição HTTP GET
             HttpRequest request = HttpRequest.newBuilder()
@@ -179,21 +179,21 @@ public class ClientApi {
                     .build();
 
             // Enviar a requisição e obter a resposta
-            HttpClient client = HttpClient.newHttpClient();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpClient product = HttpClient.newHttpClient();
+            HttpResponse<String> response = product.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Verificar o status da resposta
             if (response.statusCode() == 200) { // HTTP 200 OK
                 // Mapear a resposta para PagedResponse
                 ObjectMapper objectMapper = new ObjectMapper();
-                PageConfig<ClientResponseDTO> clientPage = objectMapper.readValue(
+                PageConfig<ProductResponseDTO> productPage = objectMapper.readValue(
                         response.body(),
                         new TypeReference<>() {}
                 );
-                return clientPage.getContent();
+                return productPage.getContent();
             } else {
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao buscar clientes: " + response.body(),
+                        "Erro ao buscar produtos: " + response.body(),
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return List.of();
             }
