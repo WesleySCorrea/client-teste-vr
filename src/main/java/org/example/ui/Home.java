@@ -1,5 +1,6 @@
 package org.example.ui;
 
+import org.example.options.client.ClientFormPanel;
 import org.example.options.client.ClientOptionsPanel;
 
 import javax.swing.*;
@@ -93,6 +94,39 @@ public class Home extends JFrame {
         JSeparator rightSeparator = new JSeparator(SwingConstants.VERTICAL);
         rightSeparator.setPreferredSize(new Dimension(1, getHeight()));
         rightPanel.add(rightSeparator, BorderLayout.CENTER);
+
+        // Obtenha as referências dos botões diretamente da classe ClientOptionsPanel
+        JButton addClientButton = clientOptionsPanel.getAddClientButton();
+
+        // Ação para o botão "Cadastrar Cliente"
+        addClientButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showClientForm();
+            }
+        });
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showClientForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Usar a classe ClientFormPanel para criar o formulário
+        ClientFormPanel clientFormPanel = new ClientFormPanel();
+        JPanel formPanel = clientFormPanel.createClientFormPanel();
+
+        // Adicionar o formulário à direita dos botões de opções
+        formContainer.add(formPanel);
+
+        // Adicionar o formulário ao painel direito sem remover os botões
+        rightPanel.add(formContainer, BorderLayout.CENTER);
 
         // Atualizar o painel
         rightPanel.revalidate();
