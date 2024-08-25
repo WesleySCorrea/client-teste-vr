@@ -1,7 +1,11 @@
 package org.example.ui;
 
+import org.example.options.client.ClientOptionsPanel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Home extends JFrame {
 
@@ -64,5 +68,34 @@ public class Home extends JFrame {
         centerPanel.add(rightPanel, BorderLayout.CENTER);
 
         add(centerPanel, BorderLayout.CENTER);
+
+        // Adicionar ações botão clientes
+        clientsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showClientOptions();
+            }
+        });
+    }
+
+    public void showClientOptions() {
+        // Limpar o painel à direita
+        rightPanel.removeAll();
+
+        // Usar a classe ClientOptionsPanel para criar o painel de opções
+        ClientOptionsPanel clientOptionsPanel = new ClientOptionsPanel(this); // Passando a instância do Home
+        JPanel optionsPanel = clientOptionsPanel.createClientOptionsPanel();
+
+        // Adicionar painel de opções ao painel direito
+        rightPanel.add(optionsPanel, BorderLayout.WEST);
+
+        // Adicionar uma linha vertical após os botões de opções
+        JSeparator rightSeparator = new JSeparator(SwingConstants.VERTICAL);
+        rightSeparator.setPreferredSize(new Dimension(1, getHeight()));
+        rightPanel.add(rightSeparator, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
     }
 }
