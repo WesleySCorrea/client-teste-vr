@@ -127,4 +127,39 @@ public class ClientApi {
             return null;
         }
     }
+
+    public boolean deleteClient(Long id) {
+        try {
+            // Construir a URI para a requisição DELETE
+            URI uri = new URI(BASE_URL + "/client/" + id);
+
+            // Construir a requisição HTTP DELETE
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(uri)
+                    .header("Content-Type", "application/json")
+                    .DELETE()
+                    .build();
+
+            // Enviar a requisição e obter a resposta
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificar o status da resposta
+            if (response.statusCode() == 204) { // HTTP 204 NO CONTENT (Deleção bem-sucedida)
+                return true;
+            } else {
+                // Se a resposta não for NO CONTENT, mostrar a mensagem de erro
+                JOptionPane.showMessageDialog(null,
+                        "Erro ao deletar cliente: " + response.body(),
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao conectar com o servidor: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
 }

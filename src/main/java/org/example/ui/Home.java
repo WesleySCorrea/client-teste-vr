@@ -1,5 +1,6 @@
 package org.example.ui;
 
+import org.example.options.client.ClientDeleteFormPanel;
 import org.example.options.client.ClientEditFormPanel;
 import org.example.options.client.ClientFormPanel;
 import org.example.options.client.ClientOptionsPanel;
@@ -99,7 +100,7 @@ public class Home extends JFrame {
         // Obtenha as referências dos botões diretamente da classe ClientOptionsPanel
         JButton addClientButton = clientOptionsPanel.getAddClientButton();
         JButton editClientButton = clientOptionsPanel.getEditClientButton();
-
+        JButton deleteClientButton = clientOptionsPanel.getDeleteClientButton();
 
         // Ação para o botão "Cadastrar Cliente"
         addClientButton.addActionListener(new ActionListener() {
@@ -120,6 +121,17 @@ public class Home extends JFrame {
                 rightPanel.add(optionsPanel, BorderLayout.WEST);
                 rightPanel.add(rightSeparator, BorderLayout.CENTER);
                 showEditClientForm(); // Mostrar o formulário de edição
+            }
+        });
+
+        // Ação para o botão "Deletar Cliente"
+        deleteClientButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showDeleteClientForm(); // Mostrar o formulário de deleção
             }
         });
 
@@ -154,6 +166,25 @@ public class Home extends JFrame {
         // Usar a classe ClientEditFormPanel para criar o formulário de edição
         ClientEditFormPanel clientEditFormPanel = new ClientEditFormPanel();
         JPanel formPanel = clientEditFormPanel.createEditClientFormPanel();
+
+        // Adicionar o formulário à direita dos botões de opções
+        formContainer.add(formPanel);
+
+        // Adicionar o formulário ao painel direito sem remover os botões
+        rightPanel.add(formContainer, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showDeleteClientForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Usar a classe ClientEditFormPanel para criar o formulário de edição
+        ClientDeleteFormPanel clientDeleteFormPanel = new ClientDeleteFormPanel();
+        JPanel formPanel = clientDeleteFormPanel.deleteClientFormPanel();
 
         // Adicionar o formulário à direita dos botões de opções
         formContainer.add(formPanel);
