@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.login.HomeLogin;
+import org.example.ui.HomeLogin;
 
 import javax.swing.*;
 

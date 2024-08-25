@@ -1,4 +1,4 @@
-package org.example.login;
+package org.example.ui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +50,9 @@ public class HomeLogin extends JFrame {
                 String password = new String(passField.getPassword());
 
                 if (username.equals("") && password.equals("")) {
-                    JOptionPane.showMessageDialog(HomeLogin.this, "Login successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                    Home home = new Home();
+                    home.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(HomeLogin.this, "Invalid credentials", "Error", JOptionPane.ERROR_MESSAGE);
                 }
