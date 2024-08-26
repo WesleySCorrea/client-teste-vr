@@ -1,6 +1,7 @@
 package org.example.ui;
 
 import org.example.options.client.*;
+import org.example.options.order.OrderOptionsPanel;
 import org.example.options.product.*;
 
 import javax.swing.*;
@@ -82,6 +83,13 @@ public class Home extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 showProductOptions();
+            }
+        });
+
+        ordersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showOrderOptions();
             }
         });
     }
@@ -370,6 +378,27 @@ public class Home extends JFrame {
 
         // Adicionar o painel da lista ao painel direito
         rightPanel.add(listPanel, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showOrderOptions() {
+        // Limpar o painel à direita
+        rightPanel.removeAll();
+
+        // Usar a classe OrderOptionsPanel para criar o painel de opções
+        OrderOptionsPanel orderOptionsPanel = new OrderOptionsPanel();
+        JPanel optionsPanel = orderOptionsPanel.createOrderOptionsPanel();
+
+        // Adicionar painel de opções ao painel direito
+        rightPanel.add(optionsPanel, BorderLayout.WEST);
+
+        // Adicionar uma linha vertical após os botões de opções
+        JSeparator rightSeparator = new JSeparator(SwingConstants.VERTICAL);
+        rightSeparator.setPreferredSize(new Dimension(1, getHeight()));
+        rightPanel.add(rightSeparator, BorderLayout.CENTER);
 
         // Atualizar o painel
         rightPanel.revalidate();
