@@ -20,23 +20,23 @@ public class ClientOptionsPanel {
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Criar os botões para as opções de cliente
-        addClientButton = new JButton("Cadastrar Cliente");
-        editClientButton = new JButton("Editar Cliente");
-        deleteClientButton = new JButton("Excluir Cliente");
-        listClientsButton = new JButton("Listar Clientes");
+        this.addClientButton = new JButton("Cadastrar Cliente");
+        this.editClientButton = new JButton("Editar Cliente");
+        this.deleteClientButton = new JButton("Excluir Cliente");
+        this.listClientsButton = new JButton("Listar Clientes");
 
         // Define largura fixa para os botões
         Dimension buttonSize = new Dimension(150, 30);
-        addClientButton.setMaximumSize(buttonSize);
-        editClientButton.setMaximumSize(buttonSize);
-        deleteClientButton.setMaximumSize(buttonSize);
-        listClientsButton.setMaximumSize(buttonSize);
+        this.addClientButton.setMaximumSize(buttonSize);
+        this.editClientButton.setMaximumSize(buttonSize);
+        this.deleteClientButton.setMaximumSize(buttonSize);
+        this.listClientsButton.setMaximumSize(buttonSize);
 
         // Alinhamento à esquerda
-        addClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        editClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        deleteClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        listClientsButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.addClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.editClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.deleteClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.listClientsButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Adicionar botões ao painel de opções
         optionsPanel.add(addClientButton);

@@ -8,10 +8,10 @@ import java.awt.*;
 @Getter
 public class ProductOptionsPanel {
 
-    private JButton addClientButton;
-    private JButton editClientButton;
-    private JButton deleteClientButton;
-    private JButton listClientsButton;
+    private JButton addProductButton;
+    private JButton editProductButton;
+    private JButton deleteProductButton;
+    private JButton listProductsButton;
 
     public JPanel createProductOptionsPanel() {
         // Painel para os botões de opções
@@ -20,32 +20,32 @@ public class ProductOptionsPanel {
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Criar os botões para as opções de produtos
-        addClientButton = new JButton("Cadastrar Produto");
-        editClientButton = new JButton("Editar Produto");
-        deleteClientButton = new JButton("Excluir Produto");
-        listClientsButton = new JButton("Listar Produtos");
+        this.addProductButton = new JButton("Cadastrar Produto");
+        this.editProductButton = new JButton("Editar Produto");
+        this.deleteProductButton = new JButton("Excluir Produto");
+        this.listProductsButton = new JButton("Listar Produtos");
 
         // Define largura fixa para os botões
         Dimension buttonSize = new Dimension(150, 30);
-        addClientButton.setMaximumSize(buttonSize);
-        editClientButton.setMaximumSize(buttonSize);
-        deleteClientButton.setMaximumSize(buttonSize);
-        listClientsButton.setMaximumSize(buttonSize);
+        this.addProductButton.setMaximumSize(buttonSize);
+        this.editProductButton.setMaximumSize(buttonSize);
+        this.deleteProductButton.setMaximumSize(buttonSize);
+        this.listProductsButton.setMaximumSize(buttonSize);
 
         // Alinhamento à esquerda
-        addClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        editClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        deleteClientButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        listClientsButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.addProductButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.editProductButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.deleteProductButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.listProductsButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Adicionar botões ao painel de opções
-        optionsPanel.add(addClientButton);
+        optionsPanel.add(addProductButton);
         optionsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento entre os botões
-        optionsPanel.add(editClientButton);
+        optionsPanel.add(editProductButton);
         optionsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento entre os botões
-        optionsPanel.add(deleteClientButton);
+        optionsPanel.add(deleteProductButton);
         optionsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento entre os botões
-        optionsPanel.add(listClientsButton);
+        optionsPanel.add(listProductsButton);
 
         return optionsPanel;
     }

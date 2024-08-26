@@ -1,6 +1,7 @@
 package org.example.ui;
 
 import org.example.options.client.*;
+import org.example.options.order.OrderFormPanel;
 import org.example.options.order.OrderOptionsPanel;
 import org.example.options.product.*;
 
@@ -257,13 +258,13 @@ public class Home extends JFrame {
         rightPanel.add(rightSeparator, BorderLayout.CENTER);
 
         // Obtenha as referências dos botões diretamente da classe ProductOptionsPanel
-        JButton addClientButton = productOptionsPanel.getAddClientButton();
-        JButton editClientButton = productOptionsPanel.getEditClientButton();
-        JButton deleteClientButton = productOptionsPanel.getDeleteClientButton();
-        JButton listClientsButton = productOptionsPanel.getListClientsButton();
+        JButton addProductButton = productOptionsPanel.getAddProductButton();
+        JButton editProductButton = productOptionsPanel.getEditProductButton();
+        JButton deleteProductButton = productOptionsPanel.getDeleteProductButton();
+        JButton listProductButton = productOptionsPanel.getListProductsButton();
 
         // Ação para o botão "Cadastrar Produto"
-        addClientButton.addActionListener(new ActionListener() {
+        addProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rightPanel.removeAll();
@@ -274,7 +275,7 @@ public class Home extends JFrame {
         });
 
         // Ação para o botão "Editar Produto"
-        editClientButton.addActionListener(new ActionListener() {
+        editProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rightPanel.removeAll();
@@ -285,7 +286,7 @@ public class Home extends JFrame {
         });
 
         // Ação para o botão "Deletar Produto"
-        deleteClientButton.addActionListener(new ActionListener() {
+        deleteProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rightPanel.removeAll();
@@ -296,7 +297,7 @@ public class Home extends JFrame {
         });
 
         // Ação para o botão "Listar Produtos"
-        listClientsButton.addActionListener(new ActionListener() {
+        listProductButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rightPanel.removeAll();
@@ -399,6 +400,42 @@ public class Home extends JFrame {
         JSeparator rightSeparator = new JSeparator(SwingConstants.VERTICAL);
         rightSeparator.setPreferredSize(new Dimension(1, getHeight()));
         rightPanel.add(rightSeparator, BorderLayout.CENTER);
+
+        // Obtenha as referências dos botões diretamente da classe OrderOptionsPanel
+        JButton addOrderButton = orderOptionsPanel.getAddOrderButton();
+        JButton editOrderButton = orderOptionsPanel.getEditOrderButton();
+        JButton deleteOrderButton = orderOptionsPanel.getDeleteOrderButton();
+        JButton listOrderButton = orderOptionsPanel.getListOrdersButton();
+
+        // Ação para o botão "Cadastrar Pedido"
+        addOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showOrderForm();
+            }
+        });
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showOrderForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Usar a classe OrderFormPanel para criar o formulário
+        OrderFormPanel orderFormPanel = new OrderFormPanel();
+        JPanel formPanel = orderFormPanel.createOrderFormPanel();
+
+        // Adicionar o formulário à direita dos botões de opções
+        formContainer.add(formPanel);
+
+        // Adicionar o formulário ao painel direito sem remover os botões
+        rightPanel.add(formContainer, BorderLayout.CENTER);
 
         // Atualizar o painel
         rightPanel.revalidate();

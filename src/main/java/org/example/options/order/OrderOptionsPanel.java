@@ -1,9 +1,17 @@
 package org.example.options.order;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 
+@Getter
 public class OrderOptionsPanel {
+
+    private JButton addOrderButton;
+    private JButton editOrderButton;
+    private JButton deleteOrderButton;
+    private JButton listOrdersButton;
 
     public JPanel createOrderOptionsPanel() {
         // Painel para os botões de opções de pedido
@@ -12,23 +20,23 @@ public class OrderOptionsPanel {
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Adiciona uma margem ao redor do painel
 
         // Criar os botões para as opções de pedido
-        JButton addOrderButton = new JButton("Iniciar Pedido");
-        JButton editOrderButton = new JButton("Editar Pedido");
-        JButton deleteOrderButton = new JButton("Excluir Pedido");
-        JButton listOrdersButton = new JButton("Listar Pedidos");
+        this.addOrderButton = new JButton("Iniciar Pedido");
+        this.editOrderButton = new JButton("Editar Pedido");
+        this.deleteOrderButton = new JButton("Excluir Pedido");
+        this.listOrdersButton = new JButton("Listar Pedidos");
 
         // Define largura fixa para os botões
         Dimension buttonSize = new Dimension(150, 30);
-        addOrderButton.setMaximumSize(buttonSize);
-        editOrderButton.setMaximumSize(buttonSize);
-        deleteOrderButton.setMaximumSize(buttonSize);
-        listOrdersButton.setMaximumSize(buttonSize);
+        this.addOrderButton.setMaximumSize(buttonSize);
+        this.editOrderButton.setMaximumSize(buttonSize);
+        this.deleteOrderButton.setMaximumSize(buttonSize);
+        this.listOrdersButton.setMaximumSize(buttonSize);
 
         // Alinhamento à esquerda
-        addOrderButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        editOrderButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        deleteOrderButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        listOrdersButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.addOrderButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.editOrderButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.deleteOrderButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.listOrdersButton.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Adicionar botões ao painel de opções
         optionsPanel.add(addOrderButton);
