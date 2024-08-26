@@ -106,7 +106,7 @@ public class ProductEditFormPanel {
             productRequestDTO.setDescription(description);
             productRequestDTO.setPrice(price);
 
-            // Chamar a API para atualizar os dados do cliente
+            // Chamar a API para atualizar os dados do produto
             ProductApi productApi = new ProductApi();
             ProductResponseDTO updateProduct = productApi.updateProduct(id, productRequestDTO);
 

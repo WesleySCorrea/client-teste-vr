@@ -23,7 +23,7 @@ public class ClientListFormPanel {
         JPanel listPanel = new JPanel(new BorderLayout());
 
         // Tabela para exibir os clientes
-        String[] columnNames = {"ID", "Nome", "Sobrenome", "Limite", "Dia Vencimento", "Status"};
+        String[] columnNames = {"ID", "Nome", "Sobrenome", "Limite", "Dia Vencimento"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable clientTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(clientTable);
@@ -70,8 +70,7 @@ public class ClientListFormPanel {
                     client.getName(),
                     client.getLastName(),
                     client.getCreditLimit(),
-                    client.getDueDate(),
-                    client.getActive()
+                    client.getDueDate()
             };
             tableModel.addRow(rowData);
         }

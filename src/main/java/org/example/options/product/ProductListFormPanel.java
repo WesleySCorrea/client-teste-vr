@@ -23,7 +23,7 @@ public class ProductListFormPanel {
         JPanel listPanel = new JPanel(new BorderLayout());
 
         // Tabela para exibir os produtos
-        String[] columnNames = {"ID", "Titulo", "Descrição", "Preço", "Status"};
+        String[] columnNames = {"ID", "Titulo", "Descrição", "Preço"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         JTable clientTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(clientTable);
@@ -69,8 +69,7 @@ public class ProductListFormPanel {
                     product.getId(),
                     product.getTitle(),
                     product.getDescription(),
-                    product.getPrice(),
-                    product.getActive()
+                    product.getPrice()
             };
             tableModel.addRow(rowData);
         }

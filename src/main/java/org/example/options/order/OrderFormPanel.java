@@ -22,12 +22,12 @@ public class OrderFormPanel {
         gbc.anchor = GridBagConstraints.WEST; // Alinhar os componentes à esquerda
 
         // Campo ID (entrada manual)
-        JLabel idLabel = new JLabel("ID:");
+        JLabel idLabel = new JLabel("ID Cliente:");
         gbc.gridx = 0;
         gbc.gridy = 0;
         formPanel.add(idLabel, gbc);
 
-        JTextField idField = new JTextField(15); // Permitir entrada de ID manualmente
+        JTextField idField = new JTextField(8); // Permitir entrada de ID manualmente
         gbc.gridx = 1;
         gbc.gridy = 0;
         formPanel.add(idField, gbc);
@@ -38,26 +38,26 @@ public class OrderFormPanel {
         gbc.gridy = 0;
         formPanel.add(nameLabel, gbc);
 
-        JTextField nameField = new JTextField(15);
+        JTextField nameField = new JTextField(8);
         nameField.setEditable(false);
         gbc.gridx = 3;
         gbc.gridy = 0;
         formPanel.add(nameField, gbc);
 
         JLabel limitLabel = new JLabel("Limite:");
-        gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridx = 4;
+        gbc.gridy = 0;
         formPanel.add(limitLabel, gbc);
 
-        JTextField limitField = new JTextField(15);
+        JTextField limitField = new JTextField(8);
         limitField.setEditable(false);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridx = 5;
+        gbc.gridy = 0;
         formPanel.add(limitField, gbc);
 
         // Botões de ação
         JButton searchButton = new JButton("Buscar");
-        JButton startOrderButton = new JButton("Iniciar Pedido");
+        JButton startOrderButton = new JButton("Iniciar");
         JButton clearButton = new JButton("Limpar");
 
         JLabel orderId = new JLabel("ID Pedido:");
@@ -65,7 +65,7 @@ public class OrderFormPanel {
         gbc.gridy = 6;
         formPanel.add(orderId, gbc);
 
-        JTextField orderIdField = new JTextField(15);
+        JTextField orderIdField = new JTextField(8);
         orderIdField.setEditable(false);
         gbc.gridx = 1;
         gbc.gridy = 6;
@@ -76,7 +76,7 @@ public class OrderFormPanel {
         gbc.gridy = 6;
         formPanel.add(totalValue, gbc);
 
-        JTextField totalValueField = new JTextField(15);
+        JTextField totalValueField = new JTextField(8);
         totalValueField.setEditable(false);
         gbc.gridx = 3;
         gbc.gridy = 6;
