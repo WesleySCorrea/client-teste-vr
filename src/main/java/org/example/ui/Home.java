@@ -3,6 +3,7 @@ package org.example.ui;
 import org.example.options.client.*;
 import org.example.options.order.OrderDeleteFormPanel;
 import org.example.options.order.OrderFormPanel;
+import org.example.options.order.OrderListFormPanel;
 import org.example.options.order.OrderOptionsPanel;
 import org.example.options.product.*;
 
@@ -432,6 +433,17 @@ public class Home extends JFrame {
             }
         });
 
+        // Ação para o botão "Listar Produtos"
+        listOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showListOrderForm(); // Listar Produtos
+            }
+        });
+
         // Atualizar o painel
         rightPanel.revalidate();
         rightPanel.repaint();
@@ -469,6 +481,22 @@ public class Home extends JFrame {
 
         // Adicionar o formulário ao painel direito sem remover os botões
         rightPanel.add(formContainer, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showListOrderForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Criar o painel da lista de produtos
+        OrderListFormPanel orderListFormPanel = new OrderListFormPanel();
+        JPanel listPanel = orderListFormPanel.createOrderListPanel();
+
+        // Adicionar o painel da lista ao painel direito
+        rightPanel.add(listPanel, BorderLayout.CENTER);
 
         // Atualizar o painel
         rightPanel.revalidate();

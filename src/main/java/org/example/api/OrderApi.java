@@ -174,10 +174,10 @@ public class OrderApi {
         }
     }
 
-    public List<ClientResponseDTO> findAllClientsByActiveIsTrue(int page, int size) {
+    public List<OrderResponseDTO> findAllOrders(int page, int size) {
         try {
             // Construir a URI com parâmetros de paginação
-            URI uri = new URI(BASE_URL + "/client?page=" + page + "&size=" + size);
+            URI uri = new URI(BASE_URL + "?page=" + page + "&size=" + size);
 
             // Construir a requisição HTTP GET
             HttpRequest request = HttpRequest.newBuilder()
@@ -194,14 +194,14 @@ public class OrderApi {
             if (response.statusCode() == 200) { // HTTP 200 OK
                 // Mapear a resposta para PagedResponse
                 ObjectMapper objectMapper = new ObjectMapper();
-                PageConfig<ClientResponseDTO> clientPage = objectMapper.readValue(
+                PageConfig<OrderResponseDTO> orderPage = objectMapper.readValue(
                         response.body(),
                         new TypeReference<>() {}
                 );
-                return clientPage.getContent();
+                return orderPage.getContent();
             } else {
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao buscar clientes: " + response.body(),
+                        "Erro ao buscar pedidos",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return List.of();
             }

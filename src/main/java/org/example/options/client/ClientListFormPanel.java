@@ -20,6 +20,25 @@ public class ClientListFormPanel {
     }
 
     public JPanel createClientListPanel() {
+        // Criar o painel de formulário
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 6, 5); // Espaçamento entre os componentes
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.WEST;
+
+        JButton searchButton = new JButton("Buscar");
+        JButton deleteButton = new JButton("Deletar");
+
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        formPanel.add(searchButton, gbc);
+
+        gbc.gridx = 1;
+        formPanel.add(deleteButton, gbc);
+
         JPanel listPanel = new JPanel(new BorderLayout());
 
         // Tabela para exibir os clientes
