@@ -12,7 +12,7 @@ public class HomeLogin extends JFrame {
 
     public HomeLogin() {
         setTitle("Login");
-        setSize(800, 600);
+        setSize(850, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

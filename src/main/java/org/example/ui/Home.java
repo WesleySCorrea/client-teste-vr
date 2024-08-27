@@ -18,7 +18,7 @@ public class Home extends JFrame {
 
     public Home() {
         setTitle("Home");
-        setSize(800, 600);
+        setSize(850, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
