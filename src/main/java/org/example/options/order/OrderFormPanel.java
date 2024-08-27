@@ -215,9 +215,16 @@ public class OrderFormPanel {
 // Adicionar botão "Finalizar Pedido"
         JButton finalizeOrderButton = new JButton("Finalizar Pedido");
         finalizeOrderButton.setVisible(false);
-        gbc.gridx = 2;
-        gbc.gridy = 12;
+        gbc.gridx = 3;
+        gbc.gridy = 13;
         formPanel.add(finalizeOrderButton, gbc);
+
+        // Adicionar botão "Finalizar Pedido"
+        JButton closeOrderButton = new JButton("Fechar Pedido");
+        closeOrderButton.setVisible(false);
+        gbc.gridx = 3;
+        gbc.gridy = 14;
+        formPanel.add(closeOrderButton, gbc);
 
 
         // Ação para o botão "Buscar"
@@ -244,12 +251,6 @@ public class OrderFormPanel {
             if (nameField.getText().isEmpty()) {
                 searchButton.doClick();
             }
-            orderId.setVisible(true);
-            orderIdField.setVisible(true);
-            totalValue.setVisible(true);
-            totalValueField.setVisible(true);
-            activeOrder.setVisible(true);
-            activeOrderCheckBox.setVisible(true);
 
             // Criação da DTO com os valores capturados
             OrderRequestDTO orderRequestDTO = new OrderRequestDTO();
@@ -260,6 +261,14 @@ public class OrderFormPanel {
             OrderResponseDTO response = orderApi.sendOrderData(orderRequestDTO);
 
             if (response != null) {
+                orderId.setVisible(true);
+                orderIdField.setVisible(true);
+                totalValue.setVisible(true);
+                totalValueField.setVisible(true);
+                activeOrder.setVisible(true);
+                activeOrderCheckBox.setVisible(true);
+
+
                 // Sucesso: Mostrar o objeto de resposta em um JOptionPane
                 JOptionPane.showMessageDialog(null,
                         "Pedido cadastrado com sucesso!",
@@ -272,6 +281,7 @@ public class OrderFormPanel {
                 // Exibir o painel de produto
                 productPanel.setVisible(true);
             } else {
+                idField.setEditable(true);
                 // Erro: Mostrar mensagem de erro
                 JOptionPane.showMessageDialog(null,
                         "Erro ao criar o pedido.",
@@ -318,10 +328,68 @@ public class OrderFormPanel {
             priceField.setText("");
 
             finalizeOrderButton.setVisible(true);
+            closeOrderButton.setVisible(true);
 
             BigDecimal totalValueOrder = totalValueField.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(totalValueField.getText());
             totalValueOrder = totalValueOrder.add(data.getSubtotal());
             totalValueField.setText(totalValueOrder.toString());
+        });
+
+        // Ação para o botão "Confirmar Pedido" no painel de pedidos
+        finalizeOrderButton.addActionListener(e -> {
+            Long id = Long.parseLong(orderIdField.getText());
+            OrderApi orderApi = new OrderApi();
+            OrderResponseDTO orderData = orderApi.confirmOrder(id);
+
+            // Se o produto for encontrado, preencha os campos
+            if (orderData != null) {
+                searchButton.doClick();
+
+                productIdField.setEditable(false);
+                productIdField.setText("");
+                titleField.setEditable(false);
+                titleField.setText("");
+                qtyField.setEditable(false);
+                qtyField.setText("");
+                activeOrderCheckBox.setSelected(true);
+            }
+        });
+
+        // Ação para o botão "Fechar Pedido"
+        closeOrderButton.addActionListener(e -> {
+            // Habilitar o campo ID do cliente para nova busca
+            idField.setEditable(true);
+            idField.setText("");
+
+            // Limpar os campos de cliente
+            nameField.setText("");
+            limitField.setText("");
+
+            // Esconder e limpar os campos do pedido
+            orderId.setVisible(false);
+            orderIdField.setVisible(false);
+            orderIdField.setText("");
+
+            totalValue.setVisible(false);
+            totalValueField.setVisible(false);
+            totalValueField.setText("");
+
+            activeOrder.setVisible(false);
+            activeOrderCheckBox.setVisible(false);
+            activeOrderCheckBox.setSelected(false);
+
+            // Esconder o painel de produtos
+            productPanel.setVisible(false);
+
+            // Limpar a tabela de produtos
+            productTableModel.setRowCount(0); // Isso remove todas as linhas da tabela
+
+            // Atualizar a interface para refletir as mudanças
+            productPanel.revalidate();
+            productPanel.repaint();
+
+            finalizeOrderButton.setVisible(false);
+            closeOrderButton.setVisible(false);
         });
 
         return formPanel;
