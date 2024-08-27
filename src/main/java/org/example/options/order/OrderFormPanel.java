@@ -15,6 +15,7 @@ import org.example.api.dto.response.ShoppingResponseDTO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.math.BigDecimal;
 
 public class OrderFormPanel {
 
@@ -211,14 +212,16 @@ public class OrderFormPanel {
         gbc.gridwidth = 1; // Resetar o valor de gridwidth
 
 
-
-
-
+// Adicionar botão "Finalizar Pedido"
+        JButton finalizeOrderButton = new JButton("Finalizar Pedido");
+        finalizeOrderButton.setVisible(false);
+        gbc.gridx = 2;
+        gbc.gridy = 12;
+        formPanel.add(finalizeOrderButton, gbc);
 
 
         // Ação para o botão "Buscar"
         searchButton.addActionListener(e -> {
-
 
             // Lógica para buscar o cliente pelo ID
             Long id = Long.parseLong(idField.getText());
@@ -314,7 +317,11 @@ public class OrderFormPanel {
             titleField.setText("");
             priceField.setText("");
 
+            finalizeOrderButton.setVisible(true);
 
+            BigDecimal totalValueOrder = totalValueField.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(totalValueField.getText());
+            totalValueOrder = totalValueOrder.add(data.getSubtotal());
+            totalValueField.setText(totalValueOrder.toString());
         });
 
         return formPanel;
