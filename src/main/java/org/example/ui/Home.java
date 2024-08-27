@@ -95,6 +95,16 @@ public class Home extends JFrame {
                 showOrderOptions();
             }
         });
+
+        // Ação do botão "Voltar"
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.revalidate();
+                rightPanel.repaint();
+            }
+        });
     }
 
 

@@ -93,20 +93,16 @@ public class OrderApi {
         }
     }
 
-    public ClientResponseDTO updateClient(Long id, ClientRequestDTO clientRequestDTO) {
+    public OrderResponseDTO confirmOrder(Long id) {
         try {
-            // Serializar a DTO para JSON
-            ObjectMapper objectMapper = new ObjectMapper();
-            String requestBody = objectMapper.writeValueAsString(clientRequestDTO);
-
             // Construir a URI para a requisição PATCH
-            URI uri = new URI(BASE_URL + id);
+            URI uri = new URI(BASE_URL + "/confirm/" + id);
 
             // Construir a requisição HTTP PATCH
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(uri)
                     .header("Content-Type", "application/json")
-                    .method("PATCH", HttpRequest.BodyPublishers.ofString(requestBody))
+                    .method("PATCH", HttpRequest.BodyPublishers.noBody())
                     .build();
 
             // Enviar a requisição e obter a resposta
@@ -115,12 +111,13 @@ public class OrderApi {
 
             // Verificar o status da resposta
             if (response.statusCode() == 200) { // HTTP 200 OK
-                // Mapear a resposta para o ClientResponseDTO
-                return objectMapper.readValue(response.body(), ClientResponseDTO.class);
+                // Mapear a resposta para o OrderResponseDTO
+                ObjectMapper objectMapper = new ObjectMapper();
+                return objectMapper.readValue(response.body(), OrderResponseDTO.class);
             } else {
                 // Se a resposta não for OK, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao atualizar cliente: " + response.body(),
+                        "Erro ao finalizar o pedido",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }

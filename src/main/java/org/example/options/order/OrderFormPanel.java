@@ -68,34 +68,40 @@ public class OrderFormPanel {
         JLabel orderId = new JLabel("ID Pedido:");
         gbc.gridx = 0;
         gbc.gridy = 6;
+        orderId.setVisible(false);
         formPanel.add(orderId, gbc);
 
         JTextField orderIdField = new JTextField(8);
         orderIdField.setEditable(false);
         gbc.gridx = 1;
         gbc.gridy = 6;
+        orderIdField.setVisible(false);
         formPanel.add(orderIdField, gbc);
 
         JLabel totalValue = new JLabel("Valor Total:");
         gbc.gridx = 2;
         gbc.gridy = 6;
+        totalValue.setVisible(false);
         formPanel.add(totalValue, gbc);
 
         JTextField totalValueField = new JTextField(8);
         totalValueField.setEditable(false);
         gbc.gridx = 3;
         gbc.gridy = 6;
+        totalValueField.setVisible(false);
         formPanel.add(totalValueField, gbc);
 
         JLabel activeOrder = new JLabel("Status:");
         gbc.gridx = 4;
         gbc.gridy = 6;
+        activeOrder.setVisible(false);
         formPanel.add(activeOrder, gbc);
 
         JCheckBox activeOrderCheckBox = new JCheckBox();
         activeOrderCheckBox.setEnabled(false);
         gbc.gridx = 5;
         gbc.gridy = 6;
+        activeOrderCheckBox.setVisible(false);
         formPanel.add(activeOrderCheckBox, gbc);
 
         gbc.gridwidth = 1; // Reseta para 1 para botões individuais
@@ -186,7 +192,7 @@ public class OrderFormPanel {
         formPanel.add(productPanel, gbc);
 
 // Colunas para a tabela de produtos
-        String[] productColumnNames = {"Produto ID", "Título", "Preço", "Quantidade", "Subtotal"};
+        String[] productColumnNames = {"Produto ID", "Título", "Quantidade", "Preço", "Subtotal"};
         DefaultTableModel productTableModel = new DefaultTableModel(productColumnNames, 0);
         JTable productTable = new JTable(productTableModel);
 
@@ -212,6 +218,8 @@ public class OrderFormPanel {
 
         // Ação para o botão "Buscar"
         searchButton.addActionListener(e -> {
+
+
             // Lógica para buscar o cliente pelo ID
             Long id = Long.parseLong(idField.getText());
             ClientApi clientApi = new ClientApi();
@@ -229,6 +237,16 @@ public class OrderFormPanel {
         startOrderButton.addActionListener(e -> {
             // Capturar valores dos campos
             Long id = Long.parseLong(idField.getText());
+
+            if (nameField.getText().isEmpty()) {
+                searchButton.doClick();
+            }
+            orderId.setVisible(true);
+            orderIdField.setVisible(true);
+            totalValue.setVisible(true);
+            totalValueField.setVisible(true);
+            activeOrder.setVisible(true);
+            activeOrderCheckBox.setVisible(true);
 
             // Criação da DTO com os valores capturados
             OrderRequestDTO orderRequestDTO = new OrderRequestDTO();
@@ -274,6 +292,10 @@ public class OrderFormPanel {
 
         // Ação para o botão "Adicionar"
         addProductButton.addActionListener(e -> {
+
+            if (titleField.getText().isEmpty()) {
+                productSearchButton.doClick();
+            }
 
             Long productId = Long.parseLong(productIdField.getText());
             ShoppingRequestDTO shoppingRequestDTO = new ShoppingRequestDTO();
