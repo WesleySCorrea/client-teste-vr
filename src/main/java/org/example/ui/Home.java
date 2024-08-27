@@ -440,7 +440,7 @@ public class Home extends JFrame {
                 rightPanel.removeAll();
                 rightPanel.add(optionsPanel, BorderLayout.WEST);
                 rightPanel.add(rightSeparator, BorderLayout.CENTER);
-                showListOrderForm(); // Listar Produtos
+                showListOrderForm(); // Listar Pedidos
             }
         });
 

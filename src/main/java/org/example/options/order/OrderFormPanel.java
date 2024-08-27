@@ -115,6 +115,7 @@ public class OrderFormPanel {
 
             // Se o cliente for encontrado, preencha os campos
             if (clientData != null) {
+                idField.setEditable(false);
                 nameField.setText(clientData.getName());
                 limitField.setText(clientData.getCreditLimit().toString());
             }
@@ -153,6 +154,7 @@ public class OrderFormPanel {
         // Ação para o botão "Limpar"
         clearButton.addActionListener(e -> {
             idField.setText("");
+            idField.setEditable(true);
         });
 
         return formPanel;

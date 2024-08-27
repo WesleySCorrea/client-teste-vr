@@ -213,4 +213,83 @@ public class OrderApi {
             return List.of();
         }
     }
+
+    public List<OrderResponseDTO> findAllOrdersByClientId(int page, int size, Long clientId) {
+        try {
+            // Construir a URI com parâmetros de paginação
+            URI uri = new URI(BASE_URL + "/client/" + clientId + "?page=" + page + "&size=" + size);
+
+            // Construir a requisição HTTP GET
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(uri)
+                    .header("Content-Type", "application/json")
+                    .GET()
+                    .build();
+
+            // Enviar a requisição e obter a resposta
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificar o status da resposta
+            if (response.statusCode() == 200) { // HTTP 200 OK
+                // Mapear a resposta para PagedResponse
+                ObjectMapper objectMapper = new ObjectMapper();
+                PageConfig<OrderResponseDTO> orderPage = objectMapper.readValue(
+                        response.body(),
+                        new TypeReference<>() {}
+                );
+                return orderPage.getContent();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Erro ao buscar pedidos",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                return List.of();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao conectar com o servidor: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return List.of();
+        }
+
+    }    public List<OrderResponseDTO> findAllOrdersByProductId(int page, int size, Long productId) {
+        try {
+            // Construir a URI com parâmetros de paginação
+            URI uri = new URI(BASE_URL + "/product/" + productId + "?page=" + page + "&size=" + size);
+
+            // Construir a requisição HTTP GET
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(uri)
+                    .header("Content-Type", "application/json")
+                    .GET()
+                    .build();
+
+            // Enviar a requisição e obter a resposta
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificar o status da resposta
+            if (response.statusCode() == 200) { // HTTP 200 OK
+                // Mapear a resposta para PagedResponse
+                ObjectMapper objectMapper = new ObjectMapper();
+                PageConfig<OrderResponseDTO> orderPage = objectMapper.readValue(
+                        response.body(),
+                        new TypeReference<>() {}
+                );
+                return orderPage.getContent();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Erro ao buscar pedidos",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                return List.of();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao conectar com o servidor: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return List.of();
+        }
+    }
 }
