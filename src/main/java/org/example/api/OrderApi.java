@@ -2,9 +2,7 @@ package org.example.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.api.dto.request.ClientRequestDTO;
 import org.example.api.dto.request.OrderRequestDTO;
-import org.example.api.dto.response.ClientResponseDTO;
 import org.example.api.dto.response.OrderResponseDTO;
 import org.example.config.PageConfig;
 
@@ -250,7 +248,9 @@ public class OrderApi {
             return List.of();
         }
 
-    }    public List<OrderResponseDTO> findAllOrdersByProductId(int page, int size, Long productId) {
+    }
+
+    public List<OrderResponseDTO> findAllOrdersByProductId(int page, int size, Long productId) {
         try {
             // Construir a URI com parâmetros de paginação
             URI uri = new URI(BASE_URL + "/product/" + productId + "?page=" + page + "&size=" + size);

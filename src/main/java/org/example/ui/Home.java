@@ -1,10 +1,7 @@
 package org.example.ui;
 
 import org.example.options.client.*;
-import org.example.options.order.OrderDeleteFormPanel;
-import org.example.options.order.OrderFormPanel;
-import org.example.options.order.OrderListFormPanel;
-import org.example.options.order.OrderOptionsPanel;
+import org.example.options.order.*;
 import org.example.options.product.*;
 
 import javax.swing.*;
@@ -432,6 +429,17 @@ public class Home extends JFrame {
             }
         });
 
+        // Ação para o botão "Editar Pedido"
+        editOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rightPanel.removeAll();
+                rightPanel.add(optionsPanel, BorderLayout.WEST);
+                rightPanel.add(rightSeparator, BorderLayout.CENTER);
+                showEditOrderForm(); // Mostrar o formulário de edição
+            }
+        });
+
         // Ação para o botão "Deletar Pedido"
         deleteOrderButton.addActionListener(new ActionListener() {
             @Override
@@ -443,7 +451,7 @@ public class Home extends JFrame {
             }
         });
 
-        // Ação para o botão "Listar Produtos"
+        // Ação para o botão "Listar Pedidos"
         listOrderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -466,6 +474,25 @@ public class Home extends JFrame {
         // Usar a classe OrderFormPanel para criar o formulário
         OrderFormPanel orderFormPanel = new OrderFormPanel();
         JPanel formPanel = orderFormPanel.createOrderFormPanel();
+
+        // Adicionar o formulário à direita dos botões de opções
+        formContainer.add(formPanel);
+
+        // Adicionar o formulário ao painel direito sem remover os botões
+        rightPanel.add(formContainer, BorderLayout.CENTER);
+
+        // Atualizar o painel
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+
+    public void showEditOrderForm() {
+        // Limpar o painel da direita, mas mantendo o painel de opções
+        JPanel formContainer = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Mudar de BorderLayout para FlowLayout.LEFT
+
+        // Usar a classe OrderEditFormPanel para editar o formulário
+        OrderEditFormPanel orderEditFormPanel = new OrderEditFormPanel();
+        JPanel formPanel = orderEditFormPanel.createEditOrderFormPanel();
 
         // Adicionar o formulário à direita dos botões de opções
         formContainer.add(formPanel);

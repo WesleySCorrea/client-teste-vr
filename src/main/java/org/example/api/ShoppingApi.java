@@ -2,11 +2,9 @@ package org.example.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.api.dto.request.ClientRequestDTO;
-import org.example.api.dto.request.OrderRequestDTO;
 import org.example.api.dto.request.ShoppingRequestDTO;
-import org.example.api.dto.response.ClientResponseDTO;
 import org.example.api.dto.response.OrderResponseDTO;
+import org.example.api.dto.response.ShoppingProductResponseDTO;
 import org.example.api.dto.response.ShoppingResponseDTO;
 import org.example.config.PageConfig;
 
@@ -57,6 +55,46 @@ public class ShoppingApi {
             return null;
         }
     }
+    public List<ShoppingProductResponseDTO> findAllByOrderId(int page, int size, Long orderId) {
+        try {
+            // Construir a URI com parâmetros de paginação
+            URI uri = new URI(BASE_URL + "/order/" + orderId + "/products?page=" + page + "&size=" + size);
+
+            // Construir a requisição HTTP GET
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(uri)
+                    .header("Content-Type", "application/json")
+                    .GET()
+                    .build();
+
+            // Enviar a requisição e obter a resposta
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificar o status da resposta
+            if (response.statusCode() == 200) { // HTTP 200 OK
+                // Mapear a resposta para PagedResponse
+                ObjectMapper objectMapper = new ObjectMapper();
+                PageConfig<ShoppingProductResponseDTO> orderPage = objectMapper.readValue(
+                        response.body(),
+                        new TypeReference<>() {}
+                );
+                return orderPage.getContent();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Erro ao buscar os items do pedido",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                return List.of();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao conectar com o servidor: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return List.of();
+        }
+    }
+
 //
 //    public OrderResponseDTO findOrderById(Long orderId) {
 //        try {
@@ -173,46 +211,6 @@ public class ShoppingApi {
 //                    "Erro ao conectar com o servidor: " + e.getMessage(),
 //                    "Erro", JOptionPane.ERROR_MESSAGE);
 //            return false;
-//        }
-//    }
-//
-//    public List<OrderResponseDTO> findAllOrders(int page, int size) {
-//        try {
-//            // Construir a URI com parâmetros de paginação
-//            URI uri = new URI(BASE_URL + "?page=" + page + "&size=" + size);
-//
-//            // Construir a requisição HTTP GET
-//            HttpRequest request = HttpRequest.newBuilder()
-//                    .uri(uri)
-//                    .header("Content-Type", "application/json")
-//                    .GET()
-//                    .build();
-//
-//            // Enviar a requisição e obter a resposta
-//            HttpClient client = HttpClient.newHttpClient();
-//            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//
-//            // Verificar o status da resposta
-//            if (response.statusCode() == 200) { // HTTP 200 OK
-//                // Mapear a resposta para PagedResponse
-//                ObjectMapper objectMapper = new ObjectMapper();
-//                PageConfig<OrderResponseDTO> orderPage = objectMapper.readValue(
-//                        response.body(),
-//                        new TypeReference<>() {}
-//                );
-//                return orderPage.getContent();
-//            } else {
-//                JOptionPane.showMessageDialog(null,
-//                        "Erro ao buscar pedidos",
-//                        "Erro", JOptionPane.ERROR_MESSAGE);
-//                return List.of();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            JOptionPane.showMessageDialog(null,
-//                    "Erro ao conectar com o servidor: " + e.getMessage(),
-//                    "Erro", JOptionPane.ERROR_MESSAGE);
-//            return List.of();
 //        }
 //    }
 //
