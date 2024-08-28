@@ -311,31 +311,35 @@ public class OrderFormPanel {
             }
 
             if (!qtyField.getText().isEmpty()) {
-                qtyField.setText("1");
+                Long productId = Long.parseLong(productIdField.getText());
+                ShoppingRequestDTO shoppingRequestDTO = new ShoppingRequestDTO();
+                shoppingRequestDTO.setOrderId(Long.parseLong(orderIdField.getText()));
+                shoppingRequestDTO.setProductId(productId);
+                shoppingRequestDTO.setQuantity(Integer.parseInt(qtyField.getText()));
+                ShoppingApi shoppingApi = new ShoppingApi();
+                ShoppingResponseDTO data = shoppingApi.addProductToOrder(shoppingRequestDTO);
+
+                // Adicionar os valores na tabela de produtos
+                Object[] rowData = {productId, titleField.getText(), data.getQuantity(), priceField.getText(), data.getSubtotal()};
+                productTableModel.addRow(rowData);
+
+                productIdField.setText("");
+                qtyField.setText("");
+                titleField.setText("");
+                priceField.setText("");
+
+                finalizeOrderButton.setVisible(true);
+                closeOrderButton.setVisible(true);
+
+                BigDecimal totalValueOrder = totalValueField.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(totalValueField.getText());
+                totalValueOrder = totalValueOrder.add(data.getSubtotal());
+                totalValueField.setText(totalValueOrder.toString());
+            } else {
+                qtyField.requestFocus();
+                JOptionPane.showMessageDialog(null,
+                        "Por favor, informe a quantidade desejada do produto selecionado.",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             }
-            Long productId = Long.parseLong(productIdField.getText());
-            ShoppingRequestDTO shoppingRequestDTO = new ShoppingRequestDTO();
-            shoppingRequestDTO.setOrderId(Long.parseLong(orderIdField.getText()));
-            shoppingRequestDTO.setProductId(productId);
-            shoppingRequestDTO.setQuantity(Integer.parseInt(qtyField.getText()));
-            ShoppingApi shoppingApi = new ShoppingApi();
-            ShoppingResponseDTO data = shoppingApi.addProductToOrder(shoppingRequestDTO);
-
-            // Adicionar os valores na tabela de produtos
-            Object[] rowData = {productId, titleField.getText(), data.getQuantity(), priceField.getText(), data.getSubtotal()};
-            productTableModel.addRow(rowData);
-
-            productIdField.setText("");
-            qtyField.setText("1");
-            titleField.setText("");
-            priceField.setText("");
-
-            finalizeOrderButton.setVisible(true);
-            closeOrderButton.setVisible(true);
-
-            BigDecimal totalValueOrder = totalValueField.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(totalValueField.getText());
-            totalValueOrder = totalValueOrder.add(data.getSubtotal());
-            totalValueField.setText(totalValueOrder.toString());
         });
 
         // Ação para o botão "Confirmar Pedido" no painel de pedidos

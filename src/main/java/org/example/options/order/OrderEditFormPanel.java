@@ -292,6 +292,7 @@ public class OrderEditFormPanel {
                 productSearchButton.doClick();
             }
 
+            if (!qtyField.getText().isEmpty()) {
             Long productId = Long.parseLong(productIdField.getText());
             ShoppingRequestDTO shoppingRequestDTO = new ShoppingRequestDTO();
             shoppingRequestDTO.setOrderId(Long.parseLong(orderIdField.getText()));
@@ -315,6 +316,12 @@ public class OrderEditFormPanel {
             BigDecimal totalValueOrder = totalValueField.getText().isEmpty() ? new BigDecimal(0) : new BigDecimal(totalValueField.getText());
             totalValueOrder = totalValueOrder.add(data.getSubtotal());
             totalValueField.setText(totalValueOrder.toString());
+        } else {
+            qtyField.requestFocus();
+            JOptionPane.showMessageDialog(null,
+                    "Por favor, informe a quantidade desejada do produto selecionado.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         });
 
         // Ação para o botão "Confirmar Pedido" no painel de pedidos
