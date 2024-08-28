@@ -41,7 +41,7 @@ public class ClientApi {
             } else {
                 // Se a resposta não for CREATED, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao cadastrar cliente: " + response.body(),
+                        "Erro ao cadastrar cliente",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -73,6 +73,12 @@ public class ClientApi {
             // Verificar o status da resposta
             if (response.statusCode() == 200) { // HTTP 200 OK
                 // Mapear a resposta para o ClientResponseDTO
+                if (response.body().isEmpty()) {
+                    JOptionPane.showMessageDialog(null,
+                            "Cliente com id " + clientId + " não encontrado",
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                    return null;
+                }
                 ObjectMapper objectMapper = new ObjectMapper();
                 return objectMapper.readValue(response.body(), ClientResponseDTO.class);
             } else {
@@ -118,7 +124,7 @@ public class ClientApi {
             } else {
                 // Se a resposta não for OK, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao atualizar cliente: " + response.body(),
+                        "Erro ao atualizar cliente de id " + id + "",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -153,7 +159,7 @@ public class ClientApi {
             } else {
                 // Se a resposta não for NO CONTENT, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao deletar cliente: " + response.body(),
+                        "Erro ao deletar cliente com id " + id,
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
@@ -193,7 +199,7 @@ public class ClientApi {
                 return clientPage.getContent();
             } else {
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao buscar clientes: " + response.body(),
+                        "Erro ao buscar lista de clientes",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return List.of();
             }

@@ -239,6 +239,13 @@ public class OrderEditFormPanel {
                 totalValueField.setText(response.getTotalValue().toString());
                 activeOrderCheckBox.setSelected(response.getFinished());
 
+                if (activeOrderCheckBox.isSelected()) {
+                    finalizeOrderButton.setVisible(false);
+
+                }
+                finalizeOrderButton.setVisible(true);
+                closeOrderButton.setVisible(true);
+
                 ClientApi clientApi = new ClientApi();
                 ClientResponseDTO clientData = clientApi.findClientById(clientId);
 
@@ -251,6 +258,11 @@ public class OrderEditFormPanel {
                     limitField.setText(clientData.getCreditLimit().toString());
 
                     productPanel.setVisible(true);
+                    if (activeOrderCheckBox.isSelected()) {
+                        productIdField.setEditable(false);
+                        qtyField.setEditable(false);
+                        finalizeOrderButton.setVisible(false);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null,
                             "Pedido não encontrado!",

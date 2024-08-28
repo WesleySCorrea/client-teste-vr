@@ -41,7 +41,7 @@ public class OrderApi {
             } else {
                 // Se a resposta não for CREATED, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao cadastrar o pedido: " + response.body(),
+                        "Erro ao cadastrar o pedido",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -78,7 +78,7 @@ public class OrderApi {
             } else {
                 // Se a resposta não for OK, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Pedido não encontrado: " + response.body(),
+                        "Pedido de id " + orderId + " não encontrado",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }

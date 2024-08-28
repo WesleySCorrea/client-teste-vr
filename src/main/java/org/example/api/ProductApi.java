@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ProductApi {
 
-    private static final String BASE_URL = "http://localhost:8080";
+    private static final String BASE_URL = "http://localhost:8080/products";
 
     public ProductResponseDTO sendProductData(ProductRequestDTO productRequestDTO) {
         try {
@@ -25,7 +25,7 @@ public class ProductApi {
 
             // Construir a requisição HTTP POST
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(BASE_URL + "/products"))
+                    .uri(new URI(BASE_URL))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
@@ -57,7 +57,7 @@ public class ProductApi {
     public ProductResponseDTO findProductById(Long productId) {
         try {
             // Construir a URI para a requisição GET
-            URI uri = new URI(BASE_URL + "/products/" + productId);
+            URI uri = new URI(BASE_URL + "/" + productId);
 
             // Construir a requisição HTTP GET
             HttpRequest request = HttpRequest.newBuilder()
@@ -78,7 +78,7 @@ public class ProductApi {
             } else {
                 // Se a resposta não for OK, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Produto não encontrado: " + response.body(),
+                        "Produto de id " + productId + " não encontrado",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -98,7 +98,7 @@ public class ProductApi {
             String requestBody = objectMapper.writeValueAsString(productRequestDTO);
 
             // Construir a URI para a requisição PATCH
-            URI uri = new URI(BASE_URL + "/products/" + id);
+            URI uri = new URI(BASE_URL + "/" + id);
 
             // Construir a requisição HTTP PATCH
             HttpRequest request = HttpRequest.newBuilder()
@@ -134,7 +134,7 @@ public class ProductApi {
     public boolean deleteProduct(Long id) {
         try {
             // Construir a URI para a requisição DELETE
-            URI uri = new URI(BASE_URL + "/products/" + id);
+            URI uri = new URI(BASE_URL + "/" + id);
 
             // Construir a requisição HTTP DELETE
             HttpRequest request = HttpRequest.newBuilder()
@@ -153,7 +153,7 @@ public class ProductApi {
             } else {
                 // Se a resposta não for NO CONTENT, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao deletar producte: " + response.body(),
+                        "Erro ao deletar producte de id " + id,
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
@@ -169,7 +169,7 @@ public class ProductApi {
     public List<ProductResponseDTO> findAllProductsByActiveIsTrue(int page, int size) {
         try {
             // Construir a URI com parâmetros de paginação
-            URI uri = new URI(BASE_URL + "/products?page=" + page + "&size=" + size);
+            URI uri = new URI(BASE_URL + "?page=" + page + "&size=" + size);
 
             // Construir a requisição HTTP GET
             HttpRequest request = HttpRequest.newBuilder()
@@ -193,7 +193,7 @@ public class ProductApi {
                 return productPage.getContent();
             } else {
                 JOptionPane.showMessageDialog(null,
-                        "Erro ao buscar produtos: " + response.body(),
+                        "Erro ao buscar lista de produtos",
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 return List.of();
             }

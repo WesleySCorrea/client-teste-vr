@@ -280,6 +280,7 @@ public class OrderFormPanel {
 
                 // Exibir o painel de produto
                 productPanel.setVisible(true);
+                productIdField.setEditable(true);
             } else {
                 idField.setEditable(true);
                 // Erro: Mostrar mensagem de erro
@@ -299,7 +300,6 @@ public class OrderFormPanel {
             if (productData != null) {
                 titleField.setText(productData.getTitle());
                 priceField.setText(productData.getPrice().toString());
-                qtyField.setText("1"); // Resetar a quantidade
             }
         });
 
@@ -310,6 +310,9 @@ public class OrderFormPanel {
                 productSearchButton.doClick();
             }
 
+            if (!qtyField.getText().isEmpty()) {
+                qtyField.setText("1");
+            }
             Long productId = Long.parseLong(productIdField.getText());
             ShoppingRequestDTO shoppingRequestDTO = new ShoppingRequestDTO();
             shoppingRequestDTO.setOrderId(Long.parseLong(orderIdField.getText()));
@@ -319,7 +322,7 @@ public class OrderFormPanel {
             ShoppingResponseDTO data = shoppingApi.addProductToOrder(shoppingRequestDTO);
 
             // Adicionar os valores na tabela de produtos
-            Object[] rowData = {productId, productIdField.getText(), data.getQuantity(), priceField.getText(), data.getSubtotal()};
+            Object[] rowData = {productId, titleField.getText(), data.getQuantity(), priceField.getText(), data.getSubtotal()};
             productTableModel.addRow(rowData);
 
             productIdField.setText("");
@@ -352,6 +355,7 @@ public class OrderFormPanel {
                 qtyField.setEditable(false);
                 qtyField.setText("");
                 activeOrderCheckBox.setSelected(true);
+                finalizeOrderButton.setVisible(false);
             }
         });
 

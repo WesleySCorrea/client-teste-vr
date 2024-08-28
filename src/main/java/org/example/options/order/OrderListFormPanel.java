@@ -197,13 +197,18 @@ public class OrderListFormPanel {
         // Buscar a página de pedidos da API
         List<OrderResponseDTO> orders = orderApi.findAllOrders(currentPage, pageSize);
 
+        String status;
         // Adicionar os dados na tabela
         for (OrderResponseDTO order : orders) {
+            if (order.getFinished()) {
+                status = "Sim";
+            } else status = "Não";
+
             Object[] rowData = {
                     order.getOrderId(),
                     order.getClientId(),
                     order.getTotalValue(),
-                    order.getFinished()
+                    status
             };
             tableModel.addRow(rowData);
         }
