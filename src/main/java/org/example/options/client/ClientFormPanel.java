@@ -81,6 +81,7 @@ public class ClientFormPanel {
             BigDecimal limit = new BigDecimal(limitField.getText());
             Integer dueDay = Integer.parseInt(dueDayField.getText());
 
+            if (dueDay >= 1 && dueDay <= 31) {
             // Criação da DTO com os valores capturados
             ClientRequestDTO clientRequestDTO = new ClientRequestDTO();
             clientRequestDTO.setName(name);
@@ -115,6 +116,13 @@ public class ClientFormPanel {
                         "Erro ao cadastrar cliente.",
                         "Erro", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            dueDayField.requestFocus();
+            dueDayField.setText("");
+            JOptionPane.showMessageDialog(null,
+                    "Dia de vencimento deve estar entre 1 e 31.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         });
 
         // Ação para o botão "Limpar"

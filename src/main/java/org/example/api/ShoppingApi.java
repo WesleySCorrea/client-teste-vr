@@ -40,6 +40,11 @@ public class ShoppingApi {
             if (response.statusCode() == 201) { // HTTP 201 CREATED
                 // Mapear a resposta para o ClientResponseDTO
                 return objectMapper.readValue(response.body(), ShoppingResponseDTO.class);
+            } else if (response.statusCode() == 403) {
+                JOptionPane.showMessageDialog(null,
+                        "Credito insuficiente para incluir o produto no pedido",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                return null;
             } else {
                 // Se a resposta não for CREATED, mostrar a mensagem de erro
                 JOptionPane.showMessageDialog(null,

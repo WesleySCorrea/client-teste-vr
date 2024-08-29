@@ -49,7 +49,7 @@ public class HomeLogin extends JFrame {
                 String username = userField.getText();
                 String password = new String(passField.getPassword());
 
-                if (username.equals("") && password.equals("")) {
+                if (username.equals("admin") && password.equals("admin")) {
                     dispose();
                     Home home = new Home();
                     home.setVisible(true);
