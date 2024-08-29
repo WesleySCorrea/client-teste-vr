@@ -57,7 +57,7 @@ public class ClientApi {
     public ClientResponseDTO findClientById(Long clientId) {
         try {
             // Construir a URI para a requisição GET
-            URI uri = new URI(BASE_URL + "/client/" + clientId);
+            URI uri = new URI(BASE_URL + "/client/true/" + clientId);
 
             // Construir a requisição HTTP GET
             HttpRequest request = HttpRequest.newBuilder()
@@ -75,7 +75,7 @@ public class ClientApi {
                 // Mapear a resposta para o ClientResponseDTO
                 if (response.body().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
-                            "Cliente com id " + clientId + " não encontrado",
+                            "Cliente com id " + clientId + " não encontrado ou desativado.",
                             "Erro", JOptionPane.ERROR_MESSAGE);
                     return null;
                 }

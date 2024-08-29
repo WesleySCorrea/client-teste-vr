@@ -39,11 +39,18 @@ public class OrderApi {
                 // Mapear a resposta para o ClientResponseDTO
                 return objectMapper.readValue(response.body(), OrderResponseDTO.class);
             } else {
-                // Se a resposta não for CREATED, mostrar a mensagem de erro
-                JOptionPane.showMessageDialog(null,
-                        "Erro ao cadastrar o pedido",
-                        "Erro", JOptionPane.ERROR_MESSAGE);
-                return null;
+                if (response.statusCode() == 404) {
+                        JOptionPane.showMessageDialog(null,
+                                "Cliente não encontrado ou desativado.",
+                                "Erro", JOptionPane.ERROR_MESSAGE);
+                        return null;
+                } else {
+                    // Se a resposta não for CREATED, mostrar a mensagem de erro
+                    JOptionPane.showMessageDialog(null,
+                            "Erro ao cadastrar o pedido",
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                    return null;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
